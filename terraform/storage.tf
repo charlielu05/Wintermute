@@ -1,4 +1,4 @@
-resource "aws_s3_bucket" "reddit" {
+resource "aws_s3_bucket" "wintermute" {
   bucket = "wintermute"
   acl    = "private"
 
