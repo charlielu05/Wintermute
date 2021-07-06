@@ -1,0 +1,9 @@
+*.pyc
+*.json
+.python-version
+*.csv
+*.hcl
+*.tfstate
+*.backup
+*.terraform/
+env/
