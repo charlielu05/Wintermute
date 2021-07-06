@@ -1,5 +1,5 @@
 resource "aws_s3_bucket" "wintermute" {
-  bucket = "wintermute_84"
+  bucket = "wintermute-84"
   acl    = "private"
 
   tags = {
