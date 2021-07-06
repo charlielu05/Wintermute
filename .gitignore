@@ -7,3 +7,5 @@
 *.backup
 *.terraform/
 env/
+*.DS_STORE
+/data
