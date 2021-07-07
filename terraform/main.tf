@@ -32,7 +32,7 @@ resource "aws_ecr_repository" "wintermute_ecr" {
 }
 
 resource "aws_mwaa_environment" "wintermute_airflow_env" {
-  dag_s3_path           = "dags/"
+  dag_s3_path           = "dags"
   execution_role_arn    = aws_iam_role.mwaa_execution_role.arn
   name                  = "wintermute"
   webserver_access_mode = "PUBLIC_ONLY"
