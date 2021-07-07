@@ -36,7 +36,7 @@ resource "aws_iam_role_policy" "mwaa_policy" {
       {
         Action : "airflow:PublishMetrics"
         Effect : "Allow",
-        Resource : aws_mwaa_environment.wintermute_airflow_env.arn
+        Resource : "*"
       },
       {
         Action : ["s3:GetObject*", "s3:GetBucket*", "s3:List*"]
