@@ -39,7 +39,7 @@ resource "aws_iam_role_policy" "mwaa_policy" {
         Resource : "*"
       },
       {
-        Action : ["s3:GetObject", "s3:GetBucket", "s3:List"]
+        Action : ["s3:*"]
         Effect : "Allow",
         Resource : [aws_s3_bucket.wintermute.arn,
           "${aws_s3_bucket.wintermute.arn}/*",
