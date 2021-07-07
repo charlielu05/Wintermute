@@ -39,7 +39,7 @@ resource "aws_iam_role_policy" "mwaa_policy" {
         Resource : "*"
       },
       {
-        Action : ["s3:GetObject*", "s3:GetBucket*", "s3:List*"]
+        Action : ["s3:GetObject", "s3:GetBucket", "s3:List"]
         Effect : "Allow",
         Resource : [aws_s3_bucket.wintermute.arn,
           "${aws_s3_bucket.wintermute.arn}/*",
@@ -73,14 +73,9 @@ resource "aws_iam_role_policy" "mwaa_policy" {
         Resource : "arn:aws:sqs:ap-southeast-2:*:airflow-celery-*"
       },
       {
-        Action : ["kms:Decrypt", "kms:DescribeKey", "kms:GenerateDataKey*", "kms:Encrypt"]
+        Action : ["kms:Decrypt", "kms:DescribeKey", "kms:GenerateDataKey", "kms:Encrypt"]
         Effect : "Allow",
-        NotResource : "arn:aws:kms:*:${data.aws_caller_identity.current.account_id}:key/*"
-        condition : {
-          test     = "StringLike"
-          variable = "kms:ViaService"
-          values   = "sqs.ap-southeast-2.amazonaws.com"
-        }
+        Resource : "*"
       },
     ]
   })
