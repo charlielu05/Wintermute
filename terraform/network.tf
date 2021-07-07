@@ -112,28 +112,3 @@ resource "aws_security_group" "no_ingress" {
   vpc_id      = aws_vpc.wintermute_vpc.id
 }
 
-resource "aws_security_group" "http" {
-  name        = "http"
-  description = "HTTP traffic"
-  vpc_id      = aws_vpc.wintermute_vpc.id
-
-  ingress {
-    from_port   = 80
-    to_port     = 80
-    protocol    = "TCP"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-}
-
-resource "aws_security_group" "https" {
-  name        = "https"
-  description = "HTTPS traffic"
-  vpc_id      = aws_vpc.wintermute_vpc.id
-
-  ingress {
-    from_port   = 443
-    to_port     = 443
-    protocol    = "TCP"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-}
