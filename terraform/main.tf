@@ -42,4 +42,7 @@ resource "aws_mwaa_environment" "wintermute_airflow_env" {
   }
 
   source_bucket_arn = aws_s3_bucket.wintermute.arn
+  depends_on = [
+    aws_iam_role.mwaa_execution_role,
+  ]
 }
