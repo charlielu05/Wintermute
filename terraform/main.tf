@@ -37,7 +37,7 @@ resource "aws_mwaa_environment" "wintermute_airflow_env" {
   name                  = "wintermute"
   webserver_access_mode = "PUBLIC_ONLY"
   max_workers           = var.max_worker_nodes
-  airflow_version       = "v2.0.2"
+  airflow_version       = "2.0.2"
 
   network_configuration {
     security_group_ids = [aws_security_group.mwaa_sg.id]
