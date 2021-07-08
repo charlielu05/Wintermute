@@ -35,9 +35,9 @@ resource "aws_ecs_task_definition" "etl" {
       logConfiguration = {
         logDriver = "awslogs",
         options = {
-          awslogs-group         = "awslogs-wintermute",
+          awslogs-group         = "/ecs/fargate_logging",
           awslogs-region        = "ap-southeast-2",
-          awslogs-stream-prefix = "awslogs-wintermute",
+          awslogs-stream-prefix = "ecs",
           awslogs-create-group  = "true"
         }
       }
