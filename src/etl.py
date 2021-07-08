@@ -10,6 +10,10 @@ logging.basicConfig(level=os.environ.get("LOGLEVEL", "INFO"))
 log = logging.getLogger(__name__)
 
 def s3_download(s3_bucket:str, filename:str, object_name:str):
+    # check if directory exists, otherwise create 
+    if not os.path.exists(os.path.dirname(filename)):
+        os.makedirs(os.path.dirname(filename))
+
     s3 = boto3.client('s3')
     s3.download_file(s3_bucket, object_name, filename)
 
@@ -41,6 +45,10 @@ def read_file(filepath:str):
     return df 
     
 def save_file(df:pd.DataFrame, filepath:str):
+    # check if filepath exists, create if not
+    if not os.path.exists(os.path.dirname(filepath)):
+        os.makedirs(os.path.dirname(filepath))
+
     # save pandas dataframe as csv
     log.info(f"Saving dataframe to {filepath}")
     df.to_csv(filepath)
