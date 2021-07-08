@@ -56,6 +56,11 @@ resource "aws_iam_role_policy" "mwaa_policy" {
         Resource : "*"
       },
       {
+            "Effect": "Allow",
+            "Action": "iam:PassRole",
+            "Resource": "*"
+        },
+      {
         Action : ["logs:CreateLogStream",
           "logs:CreateLogGroup",
           "logs:PutLogEvents",
@@ -84,6 +89,49 @@ resource "aws_iam_role_policy" "mwaa_policy" {
       },
     ]
   })
+}
+
+resource "aws_iam_role" "ecs_events" {
+  name = "airflow-etl-role"
+
+  assume_role_policy = <<DOC
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "",
+      "Effect": "Allow",
+      "Principal": {
+        "Service": "events.amazonaws.com"
+      },
+      "Action": "sts:AssumeRole"
+    }
+  ]
+}
+DOC
+}
+
+resource "aws_iam_role_policy" "ecs_events_run_task_with_any_role" {
+  name = "ecs_events_run_task_with_any_role"
+  role = aws_iam_role.ecs_events.id
+
+  policy = <<DOC
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": "iam:PassRole",
+            "Resource": "*"
+        },
+        {
+            "Effect": "Allow",
+            "Action": "ecs:RunTask",
+            "Resource": "${replace(aws_ecs_task_definition.etl.arn, "/:\\d+$/", ":*")}"
+        }
+    ]
+}
+DOC
 }
 
 resource "aws_iam_role" "fargate" {
