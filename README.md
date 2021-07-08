@@ -16,3 +16,4 @@ Even though AWS document states that if you leave the `airflow_version` paramete
 
 ## Airflow ECS Operator log group and stream prefix
 The variable log group set in the Airflow operator must match with the ECS task definition settings for log group. For stream prefix, you will need to prefix with container name for the Airflow operator `awslogs_stream_prefix` variable. Eg: if ECS task definition `awslogs-stream-prefix` is `ecs` then for the Airflow ECS operator `awslogs_stream_prefix` needs to be named `ecs/<container name>`.
+See this blog for more detail (https://www.the-swamp.info/blog/displaying-ecs-fargate-logs-airflow-ui/)
