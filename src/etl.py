@@ -4,7 +4,7 @@ import logging
 import os
 import pandas as pd 
 from botocore.exceptions import ClientError
-from src.config import Config 
+from config import Config 
 
 logging.basicConfig(level=os.environ.get("LOGLEVEL", "INFO"))
 log = logging.getLogger(__name__)
@@ -16,7 +16,7 @@ def s3_download(s3_bucket:str, filename:str, object_name:str):
 def s3_upload(s3_bucket:str, filename:str, object_name=None):
     # If S3 object_name was not specified, use file_name
     if object_name is None:
-        object_name = file_name
+        object_name = filename
 
     # Upload the file
     log.info(f"Uploading {filename} to s3")
