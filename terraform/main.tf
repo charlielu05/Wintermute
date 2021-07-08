@@ -22,15 +22,6 @@ provider "aws" {
 
 data "aws_caller_identity" "current" {}
 
-resource "aws_ecr_repository" "wintermute_ecr" {
-  name                 = "wintermute_ecr"
-  image_tag_mutability = "MUTABLE"
-
-  image_scanning_configuration {
-    scan_on_push = true
-  }
-}
-
 resource "aws_mwaa_environment" "wintermute_airflow_env" {
   dag_s3_path           = "dags"
   execution_role_arn    = aws_iam_role.mwaa_execution_role.arn

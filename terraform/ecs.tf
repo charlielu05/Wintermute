@@ -29,15 +29,15 @@ resource "aws_ecs_task_definition" "task" {
   memory             = 512
   container_definitions = jsonencode([
     {
-      name       = "reddit_scrape" # "application"
-      image      = aws_ecr_repository.stake_trading_ecr.repository_url
-      entryPoint = ["python", "./src/reddit_scrape.py"]
+      name       = "wintermute-etl"
+      image      = aws_ecr_repository.wintermute_ecr.repository_url
+      entryPoint = ["python", "./src/etl.py"]
       logConfiguration = {
         logDriver = "awslogs",
         options = {
-          awslogs-group         = "awslogs-reddit",
+          awslogs-group         = "awslogs-wintermute",
           awslogs-region        = "ap-southeast-2",
-          awslogs-stream-prefix = "awslogs-stake",
+          awslogs-stream-prefix = "awslogs-wintermute",
           awslogs-create-group  = "true"
         }
       }
