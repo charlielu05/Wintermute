@@ -41,7 +41,8 @@ resource "aws_iam_role_policy" "mwaa_policy" {
       {
         Action : "ecs:*"
         Effect : "Allow",
-        Resource : "arn:aws:ecs:ap-southeast-2:004279011638:task-definition/*"
+        Resource : ["arn:aws:ecs:ap-southeast-2:004279011638:task-definition/*",
+        "arn:aws:ecs:ap-southeast-2:004279011638:task/wintermute-ecs-cluster/*"]
       },
       {
         Action : ["s3:*"]
