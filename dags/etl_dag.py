@@ -33,7 +33,7 @@ hello_world = ECSOperator(
     overrides={
         "containerOverrides": [
             {
-                "name": "etl-container",
+                "name": "wintermute-etl",
                 "command": ["python", "./src/etl.py"],
             },
         ],
