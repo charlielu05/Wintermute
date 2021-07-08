@@ -17,7 +17,7 @@ resource "aws_ecr_repository" "wintermute_ecr" {
   }
 }
 
-resource "aws_ecs_task_definition" "task" {
+resource "aws_ecs_task_definition" "etl" {
   family = "wintermute-etl-task"
   requires_compatibilities = [
     "FARGATE",
