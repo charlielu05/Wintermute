@@ -82,7 +82,7 @@ resource "aws_iam_role_policy" "mwaa_policy" {
 }
 
 resource "aws_iam_role" "fargate" {
-  name = "fargate-role"
+  name = "wintermute-fargate-role"
   path = "/serviceaccounts/"
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
@@ -103,7 +103,7 @@ resource "aws_iam_role" "fargate" {
 }
 
 resource "aws_iam_role_policy" "fargate" {
-  name = "fargate-execution-role"
+  name = "wintermute-fargate-execution-role"
   role = aws_iam_role.fargate.id
 
   policy = jsonencode({
@@ -132,7 +132,7 @@ resource "aws_iam_role_policy" "fargate" {
 }
 
 resource "aws_iam_role" "ecs_task_role" {
-  name = "reddit-scrape-task"
+  name = "wintermute-etl-task"
 
   assume_role_policy = <<EOF
 {
