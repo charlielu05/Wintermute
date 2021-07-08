@@ -56,10 +56,10 @@ resource "aws_iam_role_policy" "mwaa_policy" {
         Resource : "*"
       },
       {
-            "Effect": "Allow",
-            "Action": "iam:PassRole",
-            "Resource": "*"
-        },
+        "Effect" : "Allow",
+        "Action" : "iam:PassRole",
+        "Resource" : "*"
+      },
       {
         Action : ["logs:CreateLogStream",
           "logs:CreateLogGroup",
