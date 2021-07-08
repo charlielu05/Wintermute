@@ -49,5 +49,5 @@ hello_world = ECSOperator(
         "Project":"Wintermute"
     },
     awslogs_group="/ecs/fargate_logging",
-    awslogs_stream_prefix="ecs/fargate_logging",  # prefix with container name
+    awslogs_stream_prefix="ecs/wintermute-etl",  # prefix with container name
 )
