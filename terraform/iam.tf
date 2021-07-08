@@ -39,6 +39,11 @@ resource "aws_iam_role_policy" "mwaa_policy" {
         Resource : "*"
       },
       {
+        Action : "ecs:*"
+        Effect : "Allow",
+        Resource : "arn:aws:ecs:ap-southeast-2:004279011638:task-definition/*"
+      },
+      {
         Action : ["s3:*"]
         Effect : "Allow",
         Resource : [aws_s3_bucket.wintermute.arn,
