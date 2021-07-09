@@ -3,38 +3,14 @@ import json
 import logging 
 import os
 import pandas as pd 
-from botocore.exceptions import ClientError
+from aws import s3_download, s3_upload
 from config import Config 
 
 logging.basicConfig(level=os.environ.get("LOGLEVEL", "INFO"))
 log = logging.getLogger(__name__)
 
-def s3_download(s3_bucket:str, filename:str, object_name:str):
-    # check if directory exists, otherwise create 
-    if not os.path.exists(os.path.dirname(filename)):
-        os.makedirs(os.path.dirname(filename))
-
-    s3 = boto3.client('s3')
-    s3.download_file(s3_bucket, object_name, filename)
-
-def s3_upload(s3_bucket:str, filename:str, object_name=None):
-    # If S3 object_name was not specified, use file_name
-    if object_name is None:
-        object_name = filename
-
-    # Upload the file
-    log.info(f"Uploading {filename} to s3")
-    s3_client = boto3.client('s3')
-    try:
-        response = s3_client.upload_file(filename, s3_bucket, object_name)
-    except ClientError as e:
-        logging.error(e)
-        return False
-    return True
-
 def read_file(filepath:str):
     # read the file as list of dicts
-    log.info(f"Reading file from {filepath}")
     with open(filepath) as f:
         data = [json.loads(line) for line in f]
 
@@ -50,15 +26,22 @@ def save_file(df:pd.DataFrame, filepath:str):
         os.makedirs(os.path.dirname(filepath))
 
     # save pandas dataframe as csv
-    log.info(f"Saving dataframe to {filepath}")
+
     df.to_csv(filepath)
 
 if __name__ == "__main__":
     # download from s3
-    s3_download(Config.S3_BUCKET, Config.LOCAL_INPUT_FILEPATH, Config.OBJECT_NAME)
+    log.info(f"Downloading raw file from s3...")
+    s3_download(Config.S3_BUCKET, Config.LOCAL_RAW_FILEPATH, Config.OBJECT_NAME)
+    
     # convert to pandas dataframe
-    df = read_file(Config.LOCAL_INPUT_FILEPATH)
+    log.info(f"Reading file from {Config.LOCAL_RAW_FILEPATH}")
+    df = read_file(Config.LOCAL_RAW_FILEPATH)
+    
     # save dataframe as csv
-    save_file(df, Config.LOCAL_OUTPUT_FILEPATH)
+    log.info(f"Saving dataframe to {Config.LOCAL_PROCESSED_FILEPATH}")
+    save_file(df, Config.LOCAL_PROCESSED_FILEPATH)
+    
     # upload to s3
-    s3_upload(Config.S3_BUCKET,Config.LOCAL_OUTPUT_FILEPATH, Config.PROCESSED_FILENAME)
+    log.info(f"Uploading file to s3...")
+    s3_upload(Config.S3_BUCKET,Config.LOCAL_PROCESSED_FILEPATH, Config.PROCESSED_FILENAME)
