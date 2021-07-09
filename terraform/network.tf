@@ -8,26 +8,26 @@ resource "aws_vpc" "wintermute_vpc" {
 }
 
 resource "aws_subnet" "public1" {
-  vpc_id     = aws_vpc.wintermute_vpc.id
-  cidr_block = var.public_subnet1cidr
+  vpc_id            = aws_vpc.wintermute_vpc.id
+  cidr_block        = var.public_subnet1cidr
   availability_zone = var.subnet_az1
 }
 
 resource "aws_subnet" "private1" {
-  vpc_id     = aws_vpc.wintermute_vpc.id
-  cidr_block = var.private_subnet1cidr
+  vpc_id            = aws_vpc.wintermute_vpc.id
+  cidr_block        = var.private_subnet1cidr
   availability_zone = var.subnet_az1
 }
 
 resource "aws_subnet" "public2" {
-  vpc_id     = aws_vpc.wintermute_vpc.id
-  cidr_block = var.public_subnet2cidr
+  vpc_id            = aws_vpc.wintermute_vpc.id
+  cidr_block        = var.public_subnet2cidr
   availability_zone = var.subnet_az2
 }
 
 resource "aws_subnet" "private2" {
-  vpc_id     = aws_vpc.wintermute_vpc.id
-  cidr_block = var.private_subnet2cidr
+  vpc_id            = aws_vpc.wintermute_vpc.id
+  cidr_block        = var.private_subnet2cidr
   availability_zone = var.subnet_az2
 }
 
