@@ -5,3 +5,4 @@ awscli
 scikit-learn
 spacy
 matplotlib
+jinja2

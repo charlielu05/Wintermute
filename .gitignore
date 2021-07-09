@@ -10,3 +10,5 @@ env/
 *.DS_STORE
 /data
 *.egg*
+*.html
+*.svg
