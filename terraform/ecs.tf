@@ -60,8 +60,8 @@ resource "aws_ecs_task_definition" "clustering" {
   task_role_arn      = aws_iam_role.ecs_task_role.arn
   execution_role_arn = aws_iam_role.fargate.arn
   network_mode       = "awsvpc"
-  cpu                = 512
-  memory             = 4096
+  cpu                = 4096
+  memory             = 8192
   container_definitions = jsonencode([
     {
       name       = "wintermute-clustering"
