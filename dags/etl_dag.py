@@ -41,8 +41,8 @@ hello_world = ECSOperator(
     launch_type="FARGATE",
     network_configuration={
         "awsvpcConfiguration": {
-            "securityGroups": ["sg-01ff46bad447f1232"],
-            "subnets": ["subnet-0d949ea696200c7b3"],
+            "securityGroups": ["sg-071e5526f26f4e5af"],
+            "subnets": ["subnet-0506ef589257e792a"],
         },
     },
     tags={
