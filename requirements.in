@@ -2,3 +2,6 @@ pandas
 boto3
 ipykernel
 awscli
+scikit-learn
+spacy
+matplotlib
