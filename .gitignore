@@ -12,3 +12,4 @@ env/
 *.egg*
 *.html
 *.svg
+*.pkl
