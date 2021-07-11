@@ -21,5 +21,6 @@ class Config():
     # Report filenames
     PLOT_FILENAME = "k-means-result.png"
     PLOT_ELBO_FILENAME = "k-means-elbo.png"
+    HTML_REPORT = "wintermute.html"
 
     

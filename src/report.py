@@ -75,7 +75,7 @@ def plot_elbo(features:np.array, plot_filename:str):
     plt.title('The Elbow Method showing the optimal k')
     plt.savefig(plot_filename)
 
-def generate_html_report(dataframes:list):
+def generate_html_report(dataframes:list, filename:str):
     env = jinja2.Environment(loader=jinja2.FileSystemLoader(searchpath=''))
     template = env.get_template('./src/report_template.html')
     # html = template.render(avg_price=df.to_html())
@@ -86,7 +86,7 @@ def generate_html_report(dataframes:list):
                                 'Gender', 
                                 'Top 3 Brands'])
     
-    with open('report.html', 'w') as f:
+    with open(filename, 'w') as f:
         f.write(html)
 
 # create the HTML file
@@ -121,4 +121,10 @@ if __name__ == "__main__":
     plot_elbo(features, Config.PLOT_ELBO_FILENAME)
     
     # generate HTML report using Jinja2
-    generate_html_report([df_avg_price, df_top3_color, df_gender, df_top3_brands])
+    log.info("Generate html report...")
+    generate_html_report([df_avg_price, df_top3_color, df_gender, df_top3_brands],
+                        Config.HTML_REPORT)
+
+    # upload report to s3 
+    log.info("Upload report to s3...")
+    s3_upload(Config.S3_BUCKET, Config.HTML_REPORT)
