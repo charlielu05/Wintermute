@@ -1,5 +1,13 @@
 # Wintermute
-Work sample assessment for Zip
+Work sample assessment for Zip <br>
+Dataset consisting of clothing and fashion items containing attributes such as price, brand, gender, descriptions. <br>
+Aim is to process the data, fit a unsupervised machine learning model and generate report with insights found. 
+- Convert raw JSON data stored in S3 using Python. Result is a CSV file which is stored in S3.
+- Using TFIDF to convert the text description into features for K-Means model. Fit K-Means model on the features and save, generated sparse array, sklearn model object and dataframe containing the model cluster assignment into S3.
+- Create plot of optimal cluster choice using ELBO method and PCA reduced two dimensional plot. Generate a HTML report using Jinja and Python
+
+All task steps are performed using ECS Fargate orchestrated by AWS Managed Airflow DAG. 
+Terraform is used to deploy the entire stack: Managed Airflow, S3, ECR, ECS Cluster & Task defintions, VPC, Subnets, IAM profile and Security groups. <br>
 
 # Setup
 Terraform Cloud Workspace with name "Wintermute". <br>
@@ -13,7 +21,7 @@ Production implementation would use possibly AWS Parameter Store or similar so t
 
 # Local Development
 Run `make start-dev` <br>
-Using Docker extension in VS-Code, attach to the spawned container by right clicking the container `wintermute-dev` and Attach Visual Studio Code.
+Using Docker extension in VS-Code, attach to the spawned container by right clicking the container `wintermute-dev` and `Attach Visual Studio Code`.
 
 # Issues
 ## Terraform Airflow Version
@@ -21,17 +29,8 @@ Even though AWS document states that if you leave the `airflow_version` paramete
 
 ## Data Quality
 Some entries in the column `long_description` information does not match with `brand` and `product_name`. <br>
-Missing data: <br>
-`df.isna().sum().apply(lambda x: x/df.shape[0])`
-brand                                    0.000074
-gender                                   0.004731
-product_name                             0.000000
-e_matched_tokens_categories_formatted    0.000000
-e_material                               0.315689
-e_color                                  0.062393
-<br>
-Dropping `e_material` as column since 31% missing. Filling in color of remaining 6% as `black`.
-Filling missing `gender` as `uni-sex`.
+Dropping `e_material` as column since 31% missing. Filling in color of remaining 6% as `black`. <br>
+Filling missing `gender` as `uni-sex`. <br>
 
 ## Airflow ECS Operator log group and stream prefix
 The variable log group set in the Airflow operator must match with the ECS task definition settings for log group. For stream prefix, you will need to prefix with container name for the Airflow operator `awslogs_stream_prefix` variable. Eg: if ECS task definition `awslogs-stream-prefix` is `ecs` then for the Airflow ECS operator `awslogs_stream_prefix` needs to be named `ecs/<container name>`. <br>
