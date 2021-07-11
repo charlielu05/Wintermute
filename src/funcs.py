@@ -2,6 +2,7 @@ import os
 import boto3
 from botocore.exceptions import ClientError
 import logging 
+import pickle
 
 def s3_download(s3_bucket:str, filename:str, object_name:str):
     # check if directory exists, otherwise create 
@@ -24,3 +25,12 @@ def s3_upload(s3_bucket:str, filename:str, object_name=None):
         logging.error(e)
         return False
     return True
+
+# save model to pickle file
+def save_pickle(object, filename:str):
+    pickle.dump(object, open(filename, 'wb'))
+
+# load model from pickle file
+def load_pickle(filename:str):
+    object = pickle.load(open(filename, 'rb'))
+    return object 

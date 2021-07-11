@@ -3,7 +3,7 @@ import json
 import logging 
 import os
 import pandas as pd 
-from aws import s3_download, s3_upload
+from funcs import s3_download, s3_upload
 from config import Config 
 
 logging.basicConfig(level=os.environ.get("LOGLEVEL", "INFO"))

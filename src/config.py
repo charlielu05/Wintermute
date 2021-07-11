@@ -5,10 +5,21 @@ class Config():
     PROCESSED_FILENAME = (f"processed/{OBJECT_NAME}.csv")
     LOCAL_RAW_FILEPATH = (f'./data/{OBJECT_NAME}')
     LOCAL_PROCESSED_FILEPATH = (f'./data/{PROCESSED_FILENAME}')
-    MODEL_CLUSTERS = 4
-    PLOT_FILENAME = "k-means-result.png"
-    SUBSET_COLUMNS = ['gender', 
+    MODEL_CLUSTERS = 5
+    SUBSET_COLUMNS = ['brand',
+                'gender', 
                 'retailer_price',
                 'product_name',
                 'e_matched_tokens_categories_formatted',
                 'e_color']
+
+    # pickled filenames
+    MODEL_NAME = 'model.pkl'
+    RESULT_DATAFRAME_NAME = 'df_result.pkl'
+    TRAINING_FEATURES = 'train_features.pkl'
+
+    # Report filenames
+    PLOT_FILENAME = "k-means-result.png"
+    PLOT_ELBO_FILENAME = "k-means-elbo.png"
+
+    
