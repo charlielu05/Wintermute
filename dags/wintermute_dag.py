@@ -83,4 +83,33 @@ with dag:
         awslogs_stream_prefix="ecs/wintermute-clustering",  
     )
 
-    etl_task >> cluster_task
+    # run report task
+    report_task = ECSOperator(
+        task_id="report",
+        dag=dag,
+        aws_conn_id="aws_ecs",
+        cluster="wintermute-ecs-cluster",
+        task_definition="wintermute-report-task",
+        overrides={
+            "containerOverrides": [
+                {
+                    "name": "wintermute-report",
+                    "command": ["python", "./src/report.py"],
+                },
+            ],
+        },
+        launch_type="FARGATE",
+        network_configuration={
+            "awsvpcConfiguration": {
+                "securityGroups": ["sg-09371bde9392e7b01"],
+                "subnets": ["subnet-05edc2a777bc30ec8"],
+            },
+        },
+        tags={
+            "Project":"Wintermute"
+        },
+        awslogs_group="/ecs/fargate_logging",
+        awslogs_stream_prefix="ecs/wintermute-report",  
+    )
+
+    etl_task >> cluster_task >> report_task

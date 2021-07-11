@@ -4,9 +4,12 @@ Work sample assessment for Zip
 # Setup
 Terraform Cloud Workspace with name "Wintermute". <br>
 AWS Access Key and Secret stored in Terraform Cloud Environment Variables. <br>
-Terraform API token stored in Github Secrets as 'TF_API_TOKEN'. <br>
-Contents of the 'dags' folder needs to be copied into 's3://<s3_directory>/dags/' <br>
-ECS task execution in Airflow requires a valid subnet and security group in the same VPC as managed Airflow. Currently for each infrastructure destroy and apply, there will be a new subnet and security group generated. Need to manually change inside the python DAG code. Proper implementation would use possibly AWS Parameter Store or similar so these values can be dynamically obtained inside the python code. <br>
+Terraform API token stored in Github Secrets as `TF_API_TOKEN`. <br>
+Contents of the 'dags' folder needs to be copied into `s3://<s3_directory>/dags/` <br>
+ECS task execution in Airflow requires a valid subnet and security group in the same VPC as managed Airflow. <br>
+Currently for each infrastructure destroy and apply, there will be a new subnet and security group generated. <br>
+Need to manually change inside the python DAG code `dags/wintermute_dag.py`. <br>
+Production implementation would use possibly AWS Parameter Store or similar so these values can be dynamically obtained inside the python code. <br>
 
 # Local Development
 Run `make start-dev` <br>

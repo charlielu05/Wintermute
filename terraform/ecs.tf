@@ -86,3 +86,38 @@ resource "aws_ecs_task_definition" "clustering" {
     }
   ])
 }
+
+resource "aws_ecs_task_definition" "report" {
+  family = "wintermute-report-task"
+  requires_compatibilities = [
+    "FARGATE",
+  ]
+  task_role_arn      = aws_iam_role.ecs_task_role.arn
+  execution_role_arn = aws_iam_role.fargate.arn
+  network_mode       = "awsvpc"
+  cpu                = 4096
+  memory             = 8192
+  container_definitions = jsonencode([
+    {
+      name       = "wintermute-report"
+      image      = aws_ecr_repository.wintermute_ecr.repository_url
+      entryPoint = ["python", "./src/report.py"]
+      logConfiguration = {
+        logDriver = "awslogs",
+        options = {
+          awslogs-group         = "/ecs/fargate_logging",
+          awslogs-region        = "ap-southeast-2",
+          awslogs-stream-prefix = "ecs",
+          awslogs-create-group  = "true"
+        }
+      }
+      essential = true
+      portMappings = [
+        {
+          containerPort = 80
+          hostPort      = 80
+        }
+      ]
+    }
+  ])
+}
