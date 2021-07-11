@@ -31,7 +31,10 @@ Dropping `e_material` as column since 31% missing. Filling in color of remaining
 Filling missing `gender` as `uni-sex`.
 
 ## Airflow ECS Operator log group and stream prefix
-The variable log group set in the Airflow operator must match with the ECS task definition settings for log group. For stream prefix, you will need to prefix with container name for the Airflow operator `awslogs_stream_prefix` variable. Eg: if ECS task definition `awslogs-stream-prefix` is `ecs` then for the Airflow ECS operator `awslogs_stream_prefix` needs to be named `ecs/<container name>`.
+The variable log group set in the Airflow operator must match with the ECS task definition settings for log group. For stream prefix, you will need to prefix with container name for the Airflow operator `awslogs_stream_prefix` variable. Eg: if ECS task definition `awslogs-stream-prefix` is `ecs` then for the Airflow ECS operator `awslogs_stream_prefix` needs to be named `ecs/<container name>`. <br>
+See this blog for more detail (https://www.the-swamp.info/blog/displaying-ecs-fargate-logs-airflow-ui/)
 
 ## ECR repository
 After infra destroy using Terraform, the Dockerfile inside the ECR container registry needs to be rebuilt. This means the full CI/CD pipeline using Github actions needs to be executed instead of just `terraform apply`.
+
+
