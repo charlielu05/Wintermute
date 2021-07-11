@@ -43,8 +43,8 @@ with dag:
         launch_type="FARGATE",
         network_configuration={
             "awsvpcConfiguration": {
-                "securityGroups": ["sg-071e5526f26f4e5af"],
-                "subnets": ["subnet-0506ef589257e792a"],
+                "securityGroups": ["sg-09371bde9392e7b01"],
+                "subnets": ["subnet-05edc2a777bc30ec8"],
             },
         },
         tags={
@@ -72,8 +72,8 @@ with dag:
         launch_type="FARGATE",
         network_configuration={
             "awsvpcConfiguration": {
-                "securityGroups": ["sg-071e5526f26f4e5af"],
-                "subnets": ["subnet-0506ef589257e792a"],
+                "securityGroups": ["sg-09371bde9392e7b01"],
+                "subnets": ["subnet-05edc2a777bc30ec8"],
             },
         },
         tags={
