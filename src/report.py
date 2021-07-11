@@ -116,9 +116,12 @@ if __name__ == "__main__":
 
     log.info("Create PCA reduced dimensions plot...")
     plot_results(model, features, Config.PLOT_FILENAME)
-  
+    log.info("Upload PCA plot to s3...")
+    s3_upload(Config.S3_BUCKET, Config.PLOT_FILENAME)
     log.info("Create ELBO plot...")
     plot_elbo(features, Config.PLOT_ELBO_FILENAME)
+    log.info("Upload ELBO plot to s3...")
+    s3_upload(Config.S3_BUCKET, Config.PLOT_ELBO_FILENAME)
     
     # generate HTML report using Jinja2
     log.info("Generate html report...")
